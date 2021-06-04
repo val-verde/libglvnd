@@ -29,6 +29,10 @@ libegl_dispatch_stubs = static_library(
   gnu_symbol_visibility : 'hidden',
 )
 
+if (host_machine.system() != 'darwin')
+  link_args = '-Wl,-Bsymbolic'
+endif
+
 libEGL = shared_library(
   'EGL',
   [
@@ -44,7 +48,7 @@ libEGL = shared_library(
       join_paths(get_option('prefix'), get_option('datadir'))),
   ],
   include_directories : inc_include,
-  link_args : '-Wl,-Bsymbolic',
+  link_args : link_args,
   link_with : libegl_dispatch_stubs,
   dependencies : [
     dep_threads, dep_dl, dep_m, dep_x11_headers, idep_trace, idep_glvnd_pthread,

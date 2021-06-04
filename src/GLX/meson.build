@@ -29,6 +29,10 @@ g_glx_dispatch_stub_list_h = custom_target(
   capture : true,
 )
 
+if (host_machine.system() != 'darwin')
+  link_args = '-Wl,-Bsymbolic'
+endif
+
 libGLX = shared_library(
   'GLX',
   [
@@ -39,7 +43,7 @@ libGLX = shared_library(
     g_glx_dispatch_stub_list_h,
   ],
   include_directories : [inc_include],
-  link_args : '-Wl,-Bsymbolic',
+  link_args : link_args,
   dependencies : [
     dep_dl, dep_x11, dep_glx, idep_gldispatch, idep_trace,
     idep_glvnd_pthread, idep_utils_misc,

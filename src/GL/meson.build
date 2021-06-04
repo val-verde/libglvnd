@@ -22,11 +22,15 @@
 # TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 # MATERIALS OR THE USE OR OTHER DEALINGS IN THE MATERIALS.
 
+if (host_machine.system() != 'darwin')
+  link_args = '-Wl,-Bsymbolic'
+endif
+
 libGL = shared_library(
   'GL',
   ['libgl.c', g_libglglxwrapper_c],
   include_directories : [inc_include],
-  link_args : '-Wl,-Bsymbolic',
+  link_args : link_args,
   dependencies : [
     dep_dl, idep_gldispatch, idep_glapi_gl, idep_glx, idep_utils_misc, dep_x11_headers
   ],

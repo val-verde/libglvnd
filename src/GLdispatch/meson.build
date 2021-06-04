@@ -30,11 +30,17 @@ else
 endif
 _ver_script = join_paths(meson.current_source_dir(), _ver_script)
 
+if (host_machine.system() != 'darwin')
+  link_args = ['-Wl,--version-script', _ver_script]
+else
+  link_args = []
+endif
+
 libgldispatch = shared_library(
   'GLdispatch',
   ['GLdispatch.c'],
   include_directories : [include_directories('vnd-glapi'), inc_include],
-  link_args : ['-Wl,--version-script', _ver_script],
+  link_args : link_args,
   link_with : libglapi,
   dependencies : [
     idep_trace, idep_glvnd_pthread, idep_app_error_check, dep_dl,
