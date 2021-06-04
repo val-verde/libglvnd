@@ -242,7 +242,10 @@ pkg = import('pkgconfig')
 
 subdir('include')
 subdir('src')
-subdir('tests')
+
+if get_option('tests')
+    subdir('tests')
+endif
 
 pkg.generate(
   name : 'libglvnd',

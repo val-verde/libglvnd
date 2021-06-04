@@ -83,3 +83,9 @@ option(
   type : 'feature',
   description : 'Allow vendor libraries to patch OpenGL entrypoint functions.'
 )
+option(
+  'tests',
+  type : 'boolean',
+  value : true,
+  description : 'Enable building tests.'
+)
